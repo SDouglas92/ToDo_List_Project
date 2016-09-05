@@ -19,8 +19,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ListView lvTasks;
-    ArrayList<String> items;
-    ArrayAdapter<String> itemsAdapter;
+    ArrayList<Task> items;
+    ArrayAdapter<Task> itemsAdapter;
     Context context = this;
 
     @Override
@@ -29,20 +29,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
 
         lvTasks = (ListView)findViewById(R.id.listView);
-        items = new ArrayList<String>();
-        itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        items = new ArrayList<Task>();
+        itemsAdapter = new ArrayAdapter<Task>(this, android.R.layout.simple_list_item_1, items);
 
         setupListViewListener();
 
         lvTasks.setAdapter(itemsAdapter);
-        items.add("Task 1");
-        items.add("Task 2");
+
     }
 
     public void onAddItem(View view){
         EditText newItem = (EditText)findViewById(R.id.submitText);
         String itemText = newItem.getText().toString();
-        itemsAdapter.add(itemText);
+        Task task = new Task(itemText);
+        itemsAdapter.add(task);
         newItem.setText("");
     }
 

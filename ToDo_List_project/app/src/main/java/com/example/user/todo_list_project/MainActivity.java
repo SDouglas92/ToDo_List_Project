@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Task> items;
     ArrayAdapter<Task> itemsAdapter;
     Context context = this;
+    MyDBHandler dbHandler = new MyDBHandler(context);
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         lvTasks = (ListView)findViewById(R.id.listView);
         items = new ArrayList<Task>();
-        itemsAdapter = new ArrayAdapter<Task>(this, android.R.layout.simple_list_item_1, items);
+        itemsAdapter = new UserAdapter(this, items);
 
         setupListViewListener();
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         EditText newItem = (EditText)findViewById(R.id.submitText);
         String itemText = newItem.getText().toString();
         Task task = new Task(itemText);
+        task.setTaskID(dbHandler.addTask(task));
         itemsAdapter.add(task);
         newItem.setText("");
     }

@@ -6,12 +6,19 @@
     <TextView
         android:id="@+id/cursorNameView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/cursorIdView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:focusable="false"
         />
+
+
 
 </LinearLayout>

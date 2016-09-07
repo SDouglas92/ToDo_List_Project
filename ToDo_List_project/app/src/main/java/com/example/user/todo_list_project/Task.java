@@ -9,10 +9,12 @@ public class Task {
     private Long taskID;
     private String taskNote;
 
+
     public Task(String taskName){
         this.taskName = taskName;
         this.taskID = null;
         this.taskNote = "";
+
     }
 
     public String getTaskName(){
@@ -33,4 +35,6 @@ public class Task {
     public void setTaskNote(String note){
         this.taskNote = note;
     }
+
+
 }

@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">ToDo_List_project</string>
-    <string name="mainPageHeading">Hello</string>
+    <string name="app_name">ToDo List</string>
+    <string name="mainPageHeading">Your Current Tasks:</string>
     <string name="submitHint">Enter Your Task</string>
     <string name="submitButton">Submit</string>
+    <string name="updateButton">Update</string>
 </resources>

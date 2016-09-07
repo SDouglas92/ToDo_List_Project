@@ -56,6 +56,8 @@ public class MyDBHandler extends SQLiteOpenHelper implements BaseColumns {
 
         Cursor taskCursor = db.rawQuery(ALL_ENTRIES, null);
 
+
+
         return taskCursor;
     }
 
@@ -68,6 +70,8 @@ public class MyDBHandler extends SQLiteOpenHelper implements BaseColumns {
 
         Cursor taskCursor = db.rawQuery(findByID, null);
         taskCursor.moveToFirst();
+
+        db.close();
 
         int columnIndex = taskCursor.getColumnIndexOrThrow("Title");
         String taskName = taskCursor.getString(columnIndex);
@@ -83,6 +87,22 @@ public class MyDBHandler extends SQLiteOpenHelper implements BaseColumns {
 
     }
 
+    public int update(Task task){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE, task.getTaskName());
+        values.put(Column_NOTES, task.getTaskNote());
 
+        SQLiteDatabase db = this.getWritableDatabase();
+
+       return db.update(TABLE_NAME, values, COLUMN_id +"= ?", new String[] {Long.toString(task.getTaskID())});
+
+
+    }
+
+    public int delete(Long position){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+       return db.delete(TABLE_NAME, COLUMN_id+"= ?", new String[] {Long.toString(position)});
+    }
 
 }

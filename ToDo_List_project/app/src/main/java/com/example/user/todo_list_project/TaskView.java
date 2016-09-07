@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by user on 06/09/2016.
@@ -21,6 +22,7 @@ public class TaskView extends AppCompatActivity {
     Context context = this;
     MyDBHandler dbHandler = new MyDBHandler(context);
     EditText mTaskNotes;
+    Button mEditButton;
 
 
     @Override
@@ -31,6 +33,7 @@ public class TaskView extends AppCompatActivity {
         mTaskName = (TextView)findViewById(R.id.taskHeader);
         mTaskId = (TextView)findViewById(R.id.taskID);
         mTaskNotes = (EditText)findViewById(R.id.taskNote);
+        mEditButton = (Button)findViewById(R.id.editButton);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -48,18 +51,24 @@ public class TaskView extends AppCompatActivity {
         mTaskId.setText(Long.toString(task.getTaskID()));
         mTaskNotes.setText(task.getTaskNote());
 
+        mEditButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Task task = new Task(mTaskName.getText().toString());
+                task.setTaskID(Long.valueOf(mTaskId.getText().toString()));
+                task.setTaskNote(mTaskNotes.getText().toString());
+
+                dbHandler.update(task);
+
+                Toast.makeText(context, "Task Updated!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
     }
 
-//    public void onEditItem(View view){
-//        Task task = new Task(mTaskName.toString());
-//        task.setTaskID(Long.valueOf(mTaskId.toString()));
-//        task.setTaskNote(mTaskNotes.toString());
-//
-//        dbHandler.update(task);
-//    }
+
 
 
 }

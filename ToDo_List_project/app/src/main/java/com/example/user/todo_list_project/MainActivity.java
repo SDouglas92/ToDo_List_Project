@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -81,6 +82,45 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("task_name", taskName );
                 intent.putExtra("task_id", Long.toString(taskId));
                 startActivity(intent);
+            }
+        });
+
+        lvTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id){
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setTitle("Delete Confirmation");
+                alertDialogBuilder.setMessage("Are You Sure ?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                Cursor taskCursor = (Cursor)parent.getItemAtPosition(position);
+
+                               Long columnIndex = taskCursor.getLong(taskCursor.getColumnIndexOrThrow("_id"));
+
+                                dbHandler.delete(columnIndex);
+
+                                Cursor newCursor = dbHandler.getAll();
+                                userCursorAdapter.changeCursor(newCursor);
+
+                                Toast.makeText(context, "Task Deleted!", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+
+
+
+
+
+                return true;
             }
         });
 

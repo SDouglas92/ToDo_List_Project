@@ -16,6 +16,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".TaskView"
+            android:label="ToDo List"
+            android:parentActivityName=".MainActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

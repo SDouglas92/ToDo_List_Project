@@ -22,11 +22,11 @@ public class Task {
     public String getTaskNote(){
         return this.taskNote;
     }
-     public long getTaskID(){
+     public Long getTaskID(){
          return this.taskID;
      }
 
-    public void setTaskID(long id){
+    public void setTaskID(Long id){
         this.taskID = id;
     }
 
